@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumerdeployapi
+spec:
+  selector:
+    matchLabels:
+      app: consumerdeployapi
+  template:
+    metadata:
+      labels:
+        app: consumerdeployapi
+    spec:
+      containers:
+      - name: consumerdeployapi
+        image: ravikkat/consumerdeployapi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumerdeployapi
+spec:
+  type: NodePort
+  selector:
+    app: consumerdeployapi
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 31504
+    name: "managementbicon"
+  
